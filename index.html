@@ -28,11 +28,46 @@
         height: 200px;
         object-fit: contain;
       }
+      .numeric-input {
+        font-size: 48px;
+        background: transparent;
+        border: 2px solid #666;
+        border-radius: 8px;
+        color: white;
+        padding: 12px;
+        margin-bottom: 32px;
+        width: 300px;
+        text-align: center;
+      }
+      .numeric-input:focus {
+        outline: none;
+        border-color: #888;
+      }
+      .numeric-input::-webkit-inner-spin-button,
+      .numeric-input::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      #countdown {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 24px;
+        color: white;
+        font-family: Arial, sans-serif;
+      }
     </style>
   </head>
   <body>
     <div id="splash-screen">
+      <div id="countdown">5</div>
       <div class="flex flex-col items-center">
+        <input
+          type="number"
+          step="0.00001"
+          placeholder="0.00000"
+          class="numeric-input"
+        />
         <span style="font-size: 12px; color: white; margin-bottom: 4px"
           >1.2</span
         >
@@ -41,17 +76,24 @@
     </div>
     <div id="root"></div>
     <script>
-      // Hide splash screen and show welcome screen
-      window.addEventListener("load", function () {
-        setTimeout(function () {
+      // Countdown timer
+      let timeLeft = 5;
+      const countdownEl = document.getElementById("countdown");
+      const timer = setInterval(() => {
+        timeLeft--;
+        if (countdownEl) countdownEl.textContent = timeLeft;
+        if (timeLeft <= 0) {
+          clearInterval(timer);
           const splashScreen = document.getElementById("splash-screen");
-          splashScreen.style.opacity = "0";
-          splashScreen.style.transition = "opacity 0.5s ease-in-out";
-          setTimeout(function () {
-            splashScreen.style.display = "none";
-          }, 500);
-        }, 1000);
-      });
+          if (splashScreen) {
+            splashScreen.style.opacity = "0";
+            splashScreen.style.transition = "opacity 0.5s ease-in-out";
+            setTimeout(() => {
+              splashScreen.style.display = "none";
+            }, 500);
+          }
+        }
+      }, 1000);
     </script>
     <script type="module" src="/src/main.tsx"></script>
     <script src="https://api.tempolabs.ai/proxy-asset?url=https://storage.googleapis.com/tempo-public-assets/error-handling.js"></script>
