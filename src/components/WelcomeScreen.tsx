@@ -14,10 +14,21 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
   return (
     <div
       className={`w-screen h-screen flex items-center justify-center ${backgroundColor}`}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        overflow: "hidden",
+      }}
     >
       <h1
-        className={`text-6xl md:text-8xl font-bold font-sans ${textColor}`}
-        style={{ fontFamily: "Roboto, Arial, sans-serif" }}
+        className={`text-8xl lg:text-9xl font-bold ${textColor}`}
+        style={{
+          fontFamily: "Roboto, Arial, sans-serif",
+          textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
+        }}
       >
         {text}
       </h1>
